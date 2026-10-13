@@ -1,0 +1,25 @@
+{
+  "_comment": "威胁情报 IOC 规则库。可自行扩充, 或通过配置 analyzers.ioc.extra_* 追加。",
+  "version": "2026.10.1",
+  "malicious_ips": [
+    "45.155.205.233",
+    "194.165.16.11",
+    "198.98.51.189",
+    "185.220.101.1",
+    "91.92.240.1"
+  ],
+  "malicious_domains": [
+    "pastebin.com",
+    "transfer.sh",
+    "ngrok.io",
+    "duckdns.org",
+    "ngrok-free.app",
+    "serveo.net"
+  ],
+  "malicious_hashes": [],
+  "suspicious_ports": [4444, 5555, 6666, 7777, 1337, 31337, 12345, 1080, 6667],
+  "suspicious_keywords": [
+    "xmrig", "kdevtmpfsi", "kinsing", "minerd", "stratum+tcp",
+    "kworker", "systemd-network", "c3pool", "supportxmr"
+  ]
+}

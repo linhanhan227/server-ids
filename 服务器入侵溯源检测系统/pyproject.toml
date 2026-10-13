@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "irtrace"
+version = "0.1.0"
+description = "Linux 服务器入侵溯源检测框架 (Intrusion Response & Trace)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "IRT Team" }]
+keywords = ["forensics", "incident-response", "intrusion", "tracing", "linux"]
+dependencies = []
+
+[project.scripts]
+irtrace = "irtrace.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+irtrace = ["data/**/*", "templates/**/*", "web/static/**/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

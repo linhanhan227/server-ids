@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRT 入侵检测控制台</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="layout">
+
+  <!-- ================= 侧栏 ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">IRT</div>
+      <div class="brand-text">
+        <strong>入侵检测控制台</strong>
+        <span>Linux Intrusion Trace</span>
+      </div>
+    </div>
+
+    <div class="side-actions">
+      <button id="refreshBtn" class="btn" title="重新加载数据">刷新</button>
+      <label class="switch" title="每 15 秒自动刷新">
+        <input type="checkbox" id="autoRefresh">
+        <span>自动</span>
+      </label>
+    </div>
+
+    <div class="side-label">
+      分析记录 <span id="runCount" class="pill">0</span>
+    </div>
+    <nav class="run-list" id="runList">
+      <div class="empty-hint">加载中…</div>
+    </nav>
+
+    <button id="settingsBtn" class="btn btn-block" type="button">设置</button>
+    <button id="keysBtn" class="btn btn-block" type="button">情报源 Key</button>
+
+    <div class="side-foot">
+      <div class="ws" id="workspaceLabel" title="">-</div>
+      <div class="muted-sm">分析记录只读 · 配置写入 data/secrets.db</div>
+    </div>
+  </aside>
+
+  <!-- ================= 主区 ================= -->
+  <main class="main">
+    <header class="topbar" id="topbar">
+      <div class="topbar-main">
+        <h1 id="runTitle">请选择一条分析记录</h1>
+        <div class="meta" id="runMeta"></div>
+      </div>
+      <div class="topbar-side">
+        <div class="risk-badge" id="riskBadge">-</div>
+        <a class="btn btn-ghost" id="rawReportLink" href="#" target="_blank"
+           style="display:none">原始报告</a>
+      </div>
+    </header>
+
+    <section class="stats" id="stats"></section>
+
+    <section class="card" id="severityCard" style="display:none">
+      <h2>严重级别分布</h2>
+      <div class="sev-bars" id="sevBars"></div>
+    </section>
+
+    <section class="card" id="timelineCard" style="display:none">
+      <h2>事件时间密度</h2>
+      <div class="spark-wrap">
+        <svg id="spark" class="spark" viewBox="0 0 1000 120" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="spark-axis" id="sparkAxis"></div>
+    </section>
+
+    <nav class="tabs" id="tabs"></nav>
+    <section class="panel" id="panel">
+      <div class="empty-hint big">从左侧选择一条分析记录开始查看</div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="settingsModal" hidden>
+  <div class="modal-card">
+    <header class="modal-head">
+      <div>
+        <strong>设置</strong>
+        <div class="muted">写入 data/secrets.db。检测只查本地库，不会自己请求在线情报。</div>
+      </div>
+      <button id="settingsClose" class="btn btn-ghost" type="button">关闭</button>
+    </header>
+    <div class="keys-body">
+      <div class="key-row">
+        <div class="key-name">AI 辅助
+          <small>关闭后不调用模型</small>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="aiEnabled" checked>
+          <span>启用</span>
+        </label>
+      </div>
+      <div class="key-row">
+        <div class="key-name">在线交叉验证
+          <small>默认关闭。打开后，AI 判定才会用已配置的在线接口核对</small>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="aiCross">
+          <span>启用</span>
+        </label>
+      </div>
+      <div class="key-actions">
+        <button id="settingsSave" class="btn" type="button">保存设置</button>
+      </div>
+      <div class="key-row">
+        <div class="key-name">本地威胁库
+          <small id="threatDbHint">尚未拉取</small>
+        </div>
+        <button id="pullBtn" class="btn" type="button">拉取最新</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="keysModal" hidden>
+  <div class="modal-card">
+    <header class="modal-head">
+      <div>
+        <strong>在线情报源</strong>
+        <div class="muted">Key 明文写入 data/secrets.db。页面和接口只显示掩码。</div>
+      </div>
+      <button id="keysClose" class="btn btn-ghost" type="button">关闭</button>
+    </header>
+    <div id="keysBody" class="keys-body"><div class="empty-hint">加载中…</div></div>
+  </div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

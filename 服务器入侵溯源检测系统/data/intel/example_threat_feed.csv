@@ -1,0 +1,8 @@
+# 本地离线情报样例。真实取证时用微步 / VT / MISP 导出的清单替换本文件。
+# 指标,类型,标签
+45.155.205.233,ip,mining-pool
+194.165.16.11,ip,scanner
+evil.example.com,domain,phishing
+c2.example.net,domain,c2
+http://evil.example.com/payload.sh,url,dropper
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,hash,empty-file-demo
